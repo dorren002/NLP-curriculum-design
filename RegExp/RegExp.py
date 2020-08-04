@@ -1,6 +1,7 @@
 import re
 
 def searchln(pattern, string):
+    '''在字符串string中搜索pattern'''
     global index
     res = re.search(pattern, string)
     if res != None:
@@ -17,6 +18,7 @@ def searchln(pattern, string):
 
 
 def searchnest(pattern, string):
+    '''判断是否有明确标识的子句，若无直接搜索给定的pattern，若有则需分别搜索，但最后输出是以输入的句子为准所以需要对下表进行简单处理'''
     global index
     temp =[]
     nest = re.compile(r'\(.*?\)')
@@ -41,6 +43,7 @@ def searchnest(pattern, string):
 
 
 def println(span, string, lnnum):
+    '''若某句子包含关键字则将输出范围内的句子保存至数组result，输入参数中span为包含关键字串的起始和结束位置下标，lnnum为当前句子所属行号'''
     global result
     temp = []
     temp.append(str(lnnum))
@@ -63,31 +66,34 @@ def println(span, string, lnnum):
 
 
 def saveln(lnnum, span, string):
+    '''暂存匹配结果，根据句子包含点的关键字数量，关键字数量等于span元素数'''
     if len(span) == 1:
         println(span[0],string, lnnum)
     else:
         for i in range(len(span)):
             println(span[i], string, lnnum)
 
+if __name__ == "__main__":
+    global result
+    global index
+    result = []
+    pattern = re.compile(r'因为.*?所以')
 
-global result
-global index
-result = []
-pattern = re.compile(r'因为.*?所以')
+    with open('corpus.txt') as f:
+        for i in range(12):
+            index = []
+            strln = f.readline().strip()
+            searchnest(pattern, strln)
+            if len(index) > 0:
+                saveln(i + 1, index, strln)
 
-with open('corpus.txt') as f:
-    for i in range(12):
-        index = []
-        strln = f.readline().strip()
-        searchnest(pattern, strln)
-        if len(index) > 0:
-            saveln(i + 1, index, strln)
-
-s=chr(12288)
-max_item = max(len(row[3]) for row in result)
-tplt="{0:"+s+"<2}\t{1:"+s+"<3}\t{2:<4}\t{3:"+s+"<"+str(max_item)+"}\t{4:<4}\t{5:<3}"
-with open('output1.txt', 'w', encoding='utf-8') as f:
-    for i in range(len(result)):
-        r = result[i]
-        f.writelines(tplt.format(r[0], r[1], r[2], r[3], r[4], r[5])+'\n')
-        print(tplt.format(r[0], r[1], r[2], r[3], r[4], r[5]))
+    s=chr(12288)
+    # 以中间字串最长的句子为标准做格式化
+    max_item = max(len(row[3]) for row in result)
+    # 格式化输出format模板
+    tplt="{0:"+s+"<2}\t{1:"+s+"<3}\t{2:<4}\t{3:"+s+"<"+str(max_item)+"}\t{4:<4}\t{5:<3}"
+    with open('output1.txt', 'w', encoding='utf-8') as f:
+        for i in range(len(result)):
+            r = result[i]
+            f.writelines(tplt.format(r[0], r[1], r[2], r[3], r[4], r[5])+'\n')
+            print(tplt.format(r[0], r[1], r[2], r[3], r[4], r[5]))
