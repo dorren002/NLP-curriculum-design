@@ -1,2 +1,11 @@
-# NLPCourse
-NLP curriculum design.
+## 自然语言处理课程编程作业
+
+本仓库内存储的代码是本人大三下学期自然语言处理课程的编程作业，分别完成了如下三个单个任务：
+
+1）RegExp------------正则语言匹配词序列中的“因为...所以“
+
+2）chiMPSeg[based on bigram]-----------最大概率中文分词
+
+3）SGNS[SkipGramwithNegativeSampling]----------词向量训练
+
+具体介绍见文件夹内说明文档。
