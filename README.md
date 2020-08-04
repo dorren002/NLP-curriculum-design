@@ -1,11 +1,19 @@
-## 自然语言处理课程编程作业
+## 有关自然语言处理的三个任务：
 
-本仓库内存储的代码是本人大三下学期自然语言处理课程的编程作业，分别完成了如下三个单个任务：
+1）基于正则表达式的关键字检索
 
-1）RegExp------------正则语言匹配词序列中的“因为...所以“
+2）基于Ngram的最大概率汉语切分算法
 
-2）chiMPSeg[based on bigram]-----------最大概率中文分词
-
-3）SGNS[SkipGramwithNegativeSampling]----------词向量训练
+3）词向量训练
 
 具体介绍见文件夹内说明文档。
+
+## Three general task in NLP
+
+1）key-word-in-context-based-on-regular-expression
+
+2）Ngram-based-chinese-Segmentation[FMM-BMM-MaximumProbability]
+
+3）Skip-Gram-with-Negative-Sampling
+
+See more details in intro.md in each folder.
